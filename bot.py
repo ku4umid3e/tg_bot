@@ -12,6 +12,10 @@ logging.basicConfig(filename='bot.log', level=logging.INFO)
 def planet_in_constellation(update, context):
     user_text = update.message.text.split()[-1]
 
+    body = getattr(ephem, user_text.title().strip())
+    now = datetime.datetime.now()
+    update.message.reply_text(ephem.constellation(body(now)))
+
 
 def talk_to_me(update, context):
     user_text = update.message.text
