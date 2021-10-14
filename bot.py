@@ -1,36 +1,17 @@
+import os
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-import ephem
-import datetime
 
+from handlers import planet_in_constellation, talk_to_me, greet_user
 
-import settings
+TOKEN = os.getenv("KEY")
 
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
 
-def planet_in_constellation(update, context):
-    user_text = update.message.text.split()[-1]
-
-    body = getattr(ephem, user_text.title().strip())
-    now = datetime.datetime.now()
-    update.message.reply_text(ephem.constellation(body(now)))
-
-
-def talk_to_me(update, context):
-    user_text = update.message.text
-    print(user_text)
-    update.message.reply_text(user_text)
-
-def greet_user(update, context):
-    # Информационный принт в терминал
-    print("Вызван /start")
-    # Ответное сообщение пользователю
-    update.message.reply_text("Привет пользователь! Ты вызвал команду /start")
-
 def main():
     # Создаем бота и передаем ему ключ для авторизации на серверах Telegram
-    mybot = Updater(settings.TOKEN, use_context=True)
+    mybot = Updater(TOKEN, use_context=True)
 
     dp = mybot.dispatcher
     # модуль ephem принимает на вход название планеты на английском, например /planet Mars
@@ -47,3 +28,4 @@ def main():
     
 if __name__ == "__main__":
     main()
+
