@@ -22,7 +22,7 @@ def anketa_name(update, context):
             update.message.reply_text(
                     "Оцените бота по шкале от 1 до 5",
                     reply_markup=ReplyKeyboardMarkup(
-                        reply_keyboard, one_time_keyboard=True
+                        reply_keyboard, one_time_keyboard=True, resize_keyboard=True
                         ))
             return 'rating'
 

@@ -1,10 +1,13 @@
 import os
 from pymongo import MongoClient
-from pymongo.common import WAIT_QUEUE_TIMEOUT
+from emoji import emojize
+from random import choice
+
+import settings
 
 
 client = MongoClient(os.getenv("DB_link"))
-db = client.testdb
+db = client.tg_bot
 
 
 def get_or_create_user(db, effective_user, chat_id):
@@ -15,7 +18,9 @@ def get_or_create_user(db, effective_user, chat_id):
             "first_name": effective_user.first_name,
             "last_name": effective_user.last_name,
             "username": effective_user.username,
-            "chat_id": chat_id 
+            "chat_id": chat_id,
+            "emoji": emojize(choice(settings.USER_EMOJI), use_aliases=True),
         }
         db.users.insert_one(user)
     return user
+
