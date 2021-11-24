@@ -2,6 +2,8 @@ from telegram import ParseMode, ReplyKeyboardRemove, ReplyKeyboardMarkup
 from telegram.ext import ConversationHandler
 from utils import main_keyboard
 
+from db import db, get_or_create_user, save_anketa
+
 
 def anketa_start(update, context):
     update.message.reply_text(
