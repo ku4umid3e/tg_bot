@@ -34,3 +34,8 @@ def save_anketa(db, user_id, anketa_data):
             {'_id': user['_id']},
             {'$set':{'anketa': [anketa_data]}}
         )
+    else:
+        db.users.update_one(
+            {'_id': user['_id']},
+            {'$push': {'anketa': anketa_data}}
+        )
