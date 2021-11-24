@@ -20,7 +20,7 @@ def talk_to_me(update, context):
     user_text = update.message.text
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     update.message.reply_text(
-            f"Здастуй, {user['name']} {user['emoji']}! Ты написал:\n {user_text}"
+            f"Здастуй, {user['first_name']} {user['emoji']}! Ты написал:\n {user_text}"
             )
 
 def greet_user(update, context):
