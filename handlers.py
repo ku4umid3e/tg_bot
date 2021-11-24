@@ -20,17 +20,15 @@ def talk_to_me(update, context):
     user_text = update.message.text
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     update.message.reply_text(
-            f"Здастуй, {user['name']} {user['emoji']}! Ты написал: {user_text}"
+            f"Здастуй, {user['name']} {user['emoji']}! Ты написал:\n {user_text}"
             )
 
 def greet_user(update, context):
-    # Информационный принт в терминал
-    print("Вызван /start")
     # Сохраним данные пользовыателя в DB
     user = get_or_create_user(db, update.effective_user, update.message.chat.id)
     # Ответное сообщение пользователю
     update.message.reply_text(
-        f"Привет пользователь{user['emoji']}Это простой бот, который пока мало что умеет.",
+        f"Привет пользователь{user['emoji']}\nЭто простой бот, который пока мало что умеет.",
         reply_markup=main_keyboard()
         )
 

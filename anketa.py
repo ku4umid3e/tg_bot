@@ -40,6 +40,8 @@ def anketa_rating(update, context):
 
 def anketa_comment(update, context):
     context.user_data['anketa']['comment'] = update.message.text
+    user = get_or_create_user(db, update.effective_user, update.message.chat_id)
+    save_anketa(db, user['user_id'], context.user_data['anketa'])
     user_text = anketa_format(context.user_data['anketa'])
     update.message.reply_text(user_text, reply_markup=main_keyboard(),
             parse_mode=ParseMode.HTML)
@@ -48,6 +50,8 @@ def anketa_comment(update, context):
 
 def anketa_skip(update, context):
     user_text =  anketa_format(context.user_data['anketa'])
+    user = get_or_create_user(db, update.effective_user, update.message.chat_id)
+    save_anketa(db, user['user_id'], context.user_data['anketa'])    
     update.message.reply_text(user_text, reply_markup=main_keyboard(),
             parse_mode=ParseMode.HTML)
     return ConversationHandler.END

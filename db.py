@@ -12,7 +12,7 @@ db = client[os.getenv("DB_NAME")]
 
 
 def get_or_create_user(db, effective_user, chat_id):
-    user = db.user.find_one({"user_id": effective_user.id})
+    user = db.users.find_one({"user_id": effective_user.id})
     if not user:
         user = {
             "user_id": effective_user.id,
@@ -27,10 +27,10 @@ def get_or_create_user(db, effective_user, chat_id):
 
 
 def save_anketa(db, user_id, anketa_data):
-    user = db.ueser.find_one({"user_id": user_id})
+    user = db.users.find_one({"user_id": user_id})
     anketa_data['created'] = datetime.now()
     if not 'anketa' in user:
-        db.user.update_one(
+        db.users.update_one(
             {'_id': user['_id']},
             {'$set':{'anketa': [anketa_data]}}
         )
